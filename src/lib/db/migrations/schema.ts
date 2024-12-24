@@ -35,6 +35,7 @@ export const users = pgTable(
   {
     id: uuid('user_id').primaryKey().defaultRandom(),
     username: varchar('username', { length: 255 }).notNull().unique(),
+    email: varchar('email', { length: 255 }).notNull().unique(),
     password: varchar('password', { length: 60 }).notNull(),
     role: varchar('role', { length: 50 }).notNull(),
     logoUrl: varchar('logo_url', { length: 2183 }),
@@ -45,6 +46,7 @@ export const users = pgTable(
   },
   (table) => [
     index('user_username_idx').on(table.username),
+    index('user_email_idx').on(table.email),
     index('user_created_at_idx').on(table.createdAt)
   ]
 );
