@@ -29,8 +29,8 @@ export interface TrackRequest {
     type: CollectionType;
 }
 
-export interface NextRequestTrack extends Omit<NextRequest, 'body' | 'headers'> {
-    session: {
+export interface NextRequestTrack extends NextRequest {
+    session?: {
       id: string;
       websiteId: string;
       visitId: string;
@@ -46,8 +46,7 @@ export interface NextRequestTrack extends Omit<NextRequest, 'body' | 'headers'> 
       city: string;
       iat: number;
     };
-    headers: { [key: string]: string };
-    yup: YupRequest;
+    yup?: YupRequest;
 }
 
 const schema = {
