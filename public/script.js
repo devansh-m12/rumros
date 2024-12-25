@@ -31,7 +31,7 @@
     const root = hostUrl
       ? hostUrl.replace(/\/$/, '')
       : currentScript.src.split('/').slice(0, -1).join('/');
-    const endpoint = `${root}/api/website/send`;
+    const endpoint = `${root}/api/website/track`;
     const screen = `${width}x${height}`;
     const eventRegex = /data-rumoros-event-([\w-_]+)/;
     const eventNameAttribute = _data + 'rumros-event';
