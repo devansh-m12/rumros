@@ -28,7 +28,10 @@
     const domains = domain.split(',').map(n => n.trim());
     const host =
       hostUrl || '__COLLECT_API_HOST__' || currentScript.src.split('/').slice(0, -1).join('/');
-    const endpoint = `http://localhost:3000/api/track`;
+    const root = hostUrl
+      ? hostUrl.replace(/\/$/, '')
+      : currentScript.src.split('/').slice(0, -1).join('/');
+    const endpoint = `${root}/api/website/send`;
     const screen = `${width}x${height}`;
     const eventRegex = /data-rumoros-event-([\w-_]+)/;
     const eventNameAttribute = _data + 'rumros-event';
