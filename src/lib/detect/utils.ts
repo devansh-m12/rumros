@@ -106,7 +106,7 @@ export async function getLocation(ip: string, req: any) {
         // Database lookup - only attempt if headers are not available
         try {
             if (!lookup) {
-                const dbPath = path.join(process.cwd(), 'src/geo/GeoLite2-City.mmdb');
+                const dbPath = path.resolve(process.cwd(), 'src/geo/GeoLite2-City.mmdb');
                 lookup = await maxmind.open(dbPath);
             }
 

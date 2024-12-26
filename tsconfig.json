@@ -38,7 +38,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "app/posthog.js"
-  ],
+, "src/script/build-geo.js"  ],
   "exclude": [
     "node_modules"
   ]
