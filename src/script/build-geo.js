@@ -13,10 +13,10 @@ const https = require('https');
 const zlib = require('zlib');
 const tar = require('tar');
 
-if (process.env.VERCEL) {
-  console.log('Vercel environment detected. Skipping geo setup.');
-  process.exit(0);
-}
+// if (process.env.VERCEL) {
+//   console.log('Vercel environment detected. Skipping geo setup.');
+//   process.exit(0);
+// }
 
 const db = 'GeoLite2-City';
 
