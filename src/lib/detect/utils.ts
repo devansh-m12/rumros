@@ -13,7 +13,6 @@ export function getIpAddress(req: any): string | null {
 
     // X-Forwarded-For
     const forwardedFor = req.headers.get?.('x-forwarded-for') || req.headers['x-forwarded-for'];
-    console.log('forwardedFor', forwardedFor);
     if (forwardedFor) {
         const ipAddresses = forwardedFor.split(',');
         const ipAddress = ipAddresses[0].trim();
@@ -149,7 +148,6 @@ export async function getClientInfo(req: any) {
     try {
         const userAgent = req.headers.get?.('user-agent') || req.headers['user-agent'];
         const ip = req.body?.payload?.ip || getIpAddress(req);
-        console.log('ip', ip);
         const location = await getLocation(ip, req);
         const browser = browserName(userAgent);
         const os = detectOS(userAgent) as string;
