@@ -40,5 +40,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-#geo
-/src/geo
+# geo
+src/geo/GeoLite2-City.mmdb

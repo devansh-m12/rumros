@@ -35,21 +35,6 @@ export async function getWebsiteSession(websiteId: string, sessionId: string): P
   const session = result[0];
   if (!session.createdAt) return null;
 
-  const events = result.map(r => ({
-    eventType: r.websiteEvents?.eventType || 0,
-    createdAt: r.websiteEvents?.createdAt || session.createdAt!,
-    visitId: r.websiteEvents?.visitId || ''
-  })).filter(e => e.eventType !== 0);
-
-  const lastAt = events.length > 0 
-    ? Math.max(...events.map((e: WebsiteEvent) => e.createdAt.getTime()))
-    : session.createdAt.getTime();
-
-  const totaltime = events.reduce((acc: number, curr: WebsiteEvent) => {
-    const createdAtStr = curr.createdAt.toISOString();
-    return acc + Number(getTimestampDiffSQL(createdAtStr, createdAtStr));
-  }, 0);
-
   return {
     id: session.id,
     websiteId: session.websiteId,
@@ -64,12 +49,5 @@ export async function getWebsiteSession(websiteId: string, sessionId: string): P
     subdivision2: session.subdivision2,
     city: session.city,
     createdAt: session.createdAt,
-    websiteEvents: events,
-    firstAt: session.createdAt,
-    lastAt: new Date(lastAt),
-    visits: new Set(events.map((e: WebsiteEvent) => e.visitId)).size,
-    views: events.filter((e: WebsiteEvent) => e.eventType === 1).length,
-    events: events.filter((e: WebsiteEvent) => e.eventType === 2).length,
-    totaltime,
   };
 }

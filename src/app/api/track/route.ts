@@ -157,7 +157,7 @@ export async function POST(req: NextRequestTrack) {
 
           const token = createToken(session, secret());
 
-          return NextResponse.json({ success: true, token, session });
+          return NextResponse.json({ success: true });
 
     } catch (error) {
         console.error('Tracking error:', error);

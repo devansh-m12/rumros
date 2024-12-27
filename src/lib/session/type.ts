@@ -18,12 +18,5 @@ export interface SessionResult {
     subdivision2: string | null;
     city: string | null;
     createdAt: Date;
-    websiteEvents: WebsiteEvent[];
-    firstAt: Date;
-    lastAt: Date;
-    visits: number;
-    views: number;
-    events: number;
-    totaltime: number;
 }
   
