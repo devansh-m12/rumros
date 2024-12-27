@@ -35,6 +35,7 @@ const nextConfig = {
   experimental: {
     // This is stable since Next.js 15.0.0, so we can remove this once we upgrade
     // instrumentationHook: true,
+    turbopack: false,
   },
   logging: {
     fetches: {
