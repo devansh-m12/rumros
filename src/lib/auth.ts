@@ -10,20 +10,20 @@ declare module "next-auth" {
   interface Session {
     user: {
       id: string;
-      username: string;
+      email: string;
       role: string;
     } & DefaultSession["user"]
   }
 
   interface User {
-    username: string;
+    email: string;
     role: string;
     token?: string;
   }
 }
 
 export const generateJWT = async (payload: JWTPayload) => {
-  const secret = process.env.JWT_SECRET || 'secret';
+  const secret = process.env.NEXTAUTH_SECRET || 'secret';
 
   const jwk = await importJWK({ k: secret, alg: 'HS256', kty: 'oct' });
 
@@ -40,20 +40,20 @@ export const authOptions: AuthOptions = {
   providers: [
     CredentialsProvider({
       credentials: {
-        username: { label: 'Username', type: 'text', placeholder: 'Enter your username' },
+        email: { label: 'Email', type: 'text', placeholder: 'Enter your email' },
         password: { label: 'Password', type: 'password', placeholder: 'Enter your password' },
       },
       async authorize(credentials) {
-        if (!credentials?.username || !credentials?.password) {
+        if (!credentials?.email || !credentials?.password) {
           throw new Error('Missing credentials');
         }
 
         try {
           const user = await db.query.users.findFirst({
-            where: eq(users.username, credentials.username),
+            where: eq(users.email, credentials.email),
             columns: {
               id: true,
-              username: true,
+              email: true,
               password: true,
               role: true,
               displayName: true,
@@ -75,14 +75,14 @@ export const authOptions: AuthOptions = {
 
           const jwt = await generateJWT({
             id: user.id,
-            username: user.username,
+            email: user.email,
             role: user.role,
           });
 
           return {
             id: user.id,
-            name: user.displayName || user.username,
-            username: user.username,
+            name: user.displayName || user.email,
+            email: user.email,
             role: user.role,
             token: jwt,
           };
@@ -101,7 +101,7 @@ export const authOptions: AuthOptions = {
     async session({ session, token }) {
       if (session.user && token.user_id) {
         session.user.id = token.user_id as string;
-        session.user.username = token.username as string;
+        session.user.email = token.email as string;
         session.user.role = token.role as string;
       }
       return session;
@@ -109,10 +109,14 @@ export const authOptions: AuthOptions = {
     async jwt({ token, user }) {
       if (user?.id) {
         token.user_id = user.id;
-        token.username = user.username;
+        token.email = user.email;
         token.role = user.role;
       }
       return token;
+    },
+    redirect: async ({ url, baseUrl }) => {
+      if (url === '/auth/login') return `${baseUrl}/u/dashboard`;
+      return baseUrl;
     },
   },
   pages: {

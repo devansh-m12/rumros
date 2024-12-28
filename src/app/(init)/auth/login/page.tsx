@@ -34,10 +34,10 @@ function LoginForm() {
 
     // Proceed with sign in if email check passes
     const result = await signIn('credentials', {
-      username: values.email,
+      email: values.email,
       password: values.password,
       redirect: false,
-    });
+    }, { redirectTo: '/u/dashboard' });
 
     if (result?.error) {
       toast({
@@ -47,7 +47,7 @@ function LoginForm() {
       return
     }
 
-    const callbackUrl = searchParams.get('callbackUrl') || '/home'
+    const callbackUrl = searchParams.get('callbackUrl') || '/u/dashboard'
     router.push(callbackUrl);
     router.refresh();
   };
