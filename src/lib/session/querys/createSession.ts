@@ -62,12 +62,5 @@ export async function createSession(data: {
         subdivision2: subdivision2 || null,
         city: city || null,
         createdAt,
-        websiteEvents: [],
-        firstAt: createdAt,
-        lastAt: createdAt,
-        visits: 0,
-        views: 0,
-        events: 0,
-        totaltime: 0
     };
 }
