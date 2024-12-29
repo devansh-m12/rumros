@@ -28,6 +28,7 @@
     "dotenv": "^16.4.7",
     "drizzle-orm": "^0.38.2",
     "is-localhost-ip": "^2.0.0",
+    "jose": "^5.9.6",
     "lucide-react": "^0.469.0",
     "maxmind": "^4.3.23",
     "next": "15.1.2",
