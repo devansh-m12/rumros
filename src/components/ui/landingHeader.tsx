@@ -14,6 +14,8 @@ import {
 } from "@/components/ui/navigation-menu"
 
 import logo from "@/assets/logo.svg"
+import { useSession } from "next-auth/react"
+import router from "next/router"
 
 interface SubItem {
   title: string
@@ -91,6 +93,7 @@ const actionButtons: ActionButton[] = [
 ]
 
 export default function LandingHeader() {
+
   return (
     <header className="border-b border-gray-800/40 bg-black/90 backdrop-blur supports-[backdrop-filter]:bg-black/50">
       <div className="container flex h-16 items-center justify-between px-4">

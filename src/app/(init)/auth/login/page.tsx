@@ -71,11 +71,11 @@ function LoginForm() {
 
   return (
     <AuthForm
-      title="Sign in to your account"
+      title="Login to your account"
       subtitle="Welcome back"
       fields={fields}
-      submitLabel="Sign in"
-      loadingLabel="Signing in..."
+      submitLabel="Login"
+      loadingLabel="Logging in..."
       validationSchema={loginSchema}
       onSubmit={onSubmit}
       linkText="Don't have an account? Register"

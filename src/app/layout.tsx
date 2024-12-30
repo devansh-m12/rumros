@@ -1,7 +1,6 @@
 import '@/app/globals.css';
 
 import { Metadata } from 'next';
-import dynamic from 'next/dynamic';
 
 import { Toaster } from '@/components/ui/toaster';
 import { sans } from '@/lib/fonts';

@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { NextRequest } from 'next/server';
 import { getToken } from 'next-auth/jwt';
 // Define paths that require protection
-const protectedPaths = ['/home', '/admin', '/sample'];
+const protectedPaths = ['/u'];
 
 export async function middleware(request: any) {
   const path = await request?.nextUrl?.pathname;
