@@ -29,6 +29,7 @@ export async function middleware(request: any) {
 
 // Configure which paths the middleware should run on
 export const config = {
-  matcher: ['/((?!api/auth|_next|static|.*\\.[^/]*$).*)'],
-
-};
+  matcher: [
+    '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)',
+  ],
+}
