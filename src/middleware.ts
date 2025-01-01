@@ -15,7 +15,6 @@ export async function middleware(request: any) {
   if (isProtectedPath) {
     // Check authentication status
     const token = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET });
-    console.log(" token", token)
 
     // // If not authenticated, redirect to login
     if (!token) {
