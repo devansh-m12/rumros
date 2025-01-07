@@ -1,1 +1,1 @@
-export * from './drizzle';
+export * from './db';
