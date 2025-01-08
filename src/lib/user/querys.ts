@@ -1,26 +1,26 @@
-import { db } from "@/lib/db/drizzle";
-import { users } from "@/lib/db/migrations/schema";
-import type { InferSelectModel } from "drizzle-orm";
-import { eq } from "drizzle-orm";
+import { db } from "@/lib/db";
+import type { User } from "@prisma/client";
 import { IUserGet } from "./type";
 
-
-export const getUserByEmail = async (email: string) => {
-    const user = await db.query.users.findFirst({
-        where: eq(users.email, email)
+export const getUserByEmail = async (email: string): Promise<User | null> => {
+    const user = await db.user.findFirst({
+        where: {
+            email: email
+        }
     });
     return user;
 }
 
-export const createUser = async (user: IUserGet) : Promise<InferSelectModel<typeof users>> => {
-    await db.insert(users).values({
-        username: `${user.email.split('@')[0]}${Math.floor(1000 + Math.random() * 9000)}`,
-        email: user.email,
-        password: user.password,
-        role: "user"
+export const createUser = async (user: IUserGet): Promise<User> => {
+    const newUser = await db.user.create({
+        data: {
+            username: `${user.email.split('@')[0]}${Math.floor(1000 + Math.random() * 9000)}`,
+            email: user.email,
+            password: user.password,
+            role: "user"
+        }
     });
     
-    const newUser = await getUserByEmail(user.email);
     if (!newUser) throw new Error("Failed to create user");
     return newUser;
 }
