@@ -1,10 +1,8 @@
 import NextAuth, { AuthOptions, DefaultSession, User } from 'next-auth';
-import {db} from '@/lib/db/drizzle';
+import { db } from '@/lib/db';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import bcrypt from 'bcrypt';
 import { JWTPayload, SignJWT, importJWK } from 'jose';
-import { users } from './db/migrations/schema';
-import { eq } from 'drizzle-orm';
 
 declare module "next-auth" {
   interface Session {
@@ -49,9 +47,12 @@ export const authOptions: AuthOptions = {
         }
 
         try {
-          const user = await db.query.users.findFirst({
-            where: eq(users.email, credentials.email),
-            columns: {
+          const user = await db.user.findFirst({
+            where: {
+              email: credentials.email,
+              deletedAt: null
+            },
+            select: {
               id: true,
               email: true,
               password: true,
